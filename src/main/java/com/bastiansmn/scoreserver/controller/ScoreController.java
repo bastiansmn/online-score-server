@@ -22,6 +22,7 @@ public class ScoreController {
         return ResponseEntity.ok(scoreService.create(namespace, user_uuid, score));
     }
 
+    // TODO: Trouver comment gérer la collision de noms (autre moyen d'avoir un historique des scores ?)
     @GetMapping("/{user_uuid}/{namespace}")
     public ResponseEntity<Score> getLastOfUser(@PathVariable String user_uuid, @PathVariable String namespace) throws FunctionalException {
         return ResponseEntity.ok(scoreService.getLastOfUser(user_uuid, namespace));
