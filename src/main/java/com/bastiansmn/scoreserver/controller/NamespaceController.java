@@ -27,6 +27,8 @@ public class NamespaceController {
         return ResponseEntity.ok(namespaceService.getAllScores(name));
     }
 
+    // TODO: fetch last scores of namespace (all user)
+
     @PostMapping
     public ResponseEntity<Namespace> createNamespace(@PathVariable String name) throws FunctionalException {
         return ResponseEntity.ok(namespaceService.create(name));

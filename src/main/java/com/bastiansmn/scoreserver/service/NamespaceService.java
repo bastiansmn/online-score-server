@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +28,7 @@ public class NamespaceService {
 
         Namespace namespace = Namespace.builder()
                 .name(name)
+                .scores(Set.of())
                 .build();
 
         return namespaceRepository.save(namespace);

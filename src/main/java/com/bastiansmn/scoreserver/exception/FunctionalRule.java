@@ -7,7 +7,8 @@ public enum FunctionalRule {
 
     NS_NOT_FOUND("NS_NOT_FOUND", "Namespace not found"),
     NS_ALREADY_EXISTS("NS_ALREADY_EXISTS", "Namespace already exists"),
-    USER_NOT_FOUND("USER_NOT_FOUND", "User not found");
+    USER_NOT_FOUND("USER_NOT_FOUND", "User not found"),
+    SCORE_NOT_FOUND("SCORE_NOT_FOUND", "Score not found")
     ;
 
     private final String name;

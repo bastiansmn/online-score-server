@@ -22,18 +22,18 @@ public class ScoreController {
         return ResponseEntity.ok(scoreService.create(namespace, user_uuid, score));
     }
 
-    @GetMapping("/{user_uuid}")
-    public ResponseEntity<Score> getLastOfUser(@PathVariable String user_uuid) throws FunctionalException {
-        return ResponseEntity.ok(scoreService.getLastOfUser(user_uuid));
+    @GetMapping("/{user_uuid}/{namespace}")
+    public ResponseEntity<Score> getLastOfUser(@PathVariable String user_uuid, @PathVariable String namespace) throws FunctionalException {
+        return ResponseEntity.ok(scoreService.getLastOfUser(user_uuid, namespace));
     }
 
-    @GetMapping("/all/{user_uuid}")
-    public ResponseEntity<List<Score>> getAllOfUser(@PathVariable String user_uuid) throws FunctionalException {
-        return ResponseEntity.ok(scoreService.getAllOfUser(user_uuid));
+    @GetMapping("/all/{user_uuid}/{namespace}")
+    public ResponseEntity<List<Score>> getAllOfUser(@PathVariable String user_uuid, @PathVariable String namespace) throws FunctionalException {
+        return ResponseEntity.ok(scoreService.getAllOfUser(user_uuid, namespace));
     }
 
     @DeleteMapping("/{score_id}")
-    public ResponseEntity<Void> delete(@PathVariable Long score_id) {
+    public ResponseEntity<Void> delete(@PathVariable Long score_id) throws FunctionalException {
         scoreService.delete(score_id);
         return ResponseEntity.noContent().build();
     }

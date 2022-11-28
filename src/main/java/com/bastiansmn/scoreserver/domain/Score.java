@@ -1,5 +1,6 @@
 package com.bastiansmn.scoreserver.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,7 +19,7 @@ public class Score {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false, unique = true)
     private Long score_id;
 
     @Column(nullable = false, updatable = false)
@@ -32,6 +33,7 @@ public class Score {
             joinColumns = @JoinColumn(name = "score_id"),
             inverseJoinColumns = @JoinColumn(name = "namespace_id")
     )
+    @JsonIgnore
     private Namespace namespace;
 
     @Column(nullable = false, updatable = false)

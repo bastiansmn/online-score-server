@@ -1,5 +1,6 @@
 package com.bastiansmn.scoreserver.repository;
 
+import com.bastiansmn.scoreserver.domain.Namespace;
 import com.bastiansmn.scoreserver.domain.Score;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -11,8 +12,8 @@ public interface ScoreRepository extends JpaRepository<Score, Long> {
 
     Boolean existsByUserUUID(String user_uuid);
 
-    Score findFirstByUserUUIDOrderByCreatedAtDesc(String user_uuid);
+    Score findFirstByUserUUIDAndNamespaceOrderByCreatedAtDesc(String user_uuid, Namespace namespace);
 
-    List<Score> findAllByUserUUIDOrderByCreatedAtAsc(String user_uuid);
+    List<Score> findAllByUserUUIDAndNamespaceOrderByCreatedAtAsc(String user_uuid, Namespace namespace);
 
 }
