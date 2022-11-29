@@ -18,7 +18,7 @@ import java.util.Date;
 public class Score {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false, unique = true)
     private Long score_id;
 
@@ -36,8 +36,10 @@ public class Score {
     @JsonIgnore
     private Namespace namespace;
 
-    @Column(nullable = false, updatable = false)
-    private String userUUID;
+    @OneToOne(
+            fetch = FetchType.EAGER
+    )
+    private User user;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private Date createdAt;

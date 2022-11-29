@@ -3,6 +3,7 @@ package com.bastiansmn.scoreserver.controller;
 import com.bastiansmn.scoreserver.domain.Score;
 import com.bastiansmn.scoreserver.exception.FunctionalException;
 import com.bastiansmn.scoreserver.service.ScoreService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,26 +17,25 @@ public class ScoreController {
 
     private final ScoreService scoreService;
 
-    @PostMapping("/create/{namespace}/{user_uuid}")
-    public ResponseEntity<Score> create(@PathVariable String namespace, @PathVariable String user_uuid, @RequestParam Long score)
+    @PutMapping("/{namespace}/{username}")
+    public ResponseEntity<Score> updateScore(@PathVariable String namespace, @PathVariable String username, @RequestParam Long score, HttpServletRequest request)
             throws FunctionalException {
-        return ResponseEntity.ok(scoreService.create(namespace, user_uuid, score));
+        return ResponseEntity.ok(scoreService.updateScore(namespace, username, score, request));
     }
 
-    // TODO: Trouver comment gérer la collision de noms (autre moyen d'avoir un historique des scores ?)
-    @GetMapping("/{user_uuid}/{namespace}")
-    public ResponseEntity<Score> getLastOfUser(@PathVariable String user_uuid, @PathVariable String namespace) throws FunctionalException {
-        return ResponseEntity.ok(scoreService.getLastOfUser(user_uuid, namespace));
+    @GetMapping("/{namespace}/{username}")
+    public ResponseEntity<Score> getLastOfUser(@PathVariable String username, @PathVariable String namespace) throws FunctionalException {
+        return ResponseEntity.ok(scoreService.getLastOfUser(username, namespace));
     }
 
-    @GetMapping("/all/{user_uuid}/{namespace}")
-    public ResponseEntity<List<Score>> getAllOfUser(@PathVariable String user_uuid, @PathVariable String namespace) throws FunctionalException {
-        return ResponseEntity.ok(scoreService.getAllOfUser(user_uuid, namespace));
+    @GetMapping("/all/{namespace}/{username}")
+    public ResponseEntity<List<Score>> getAllOfUser(@PathVariable String username, @PathVariable String namespace) throws FunctionalException {
+        return ResponseEntity.ok(scoreService.getAllOfUser(username, namespace));
     }
 
-    @DeleteMapping("/{score_id}")
-    public ResponseEntity<Void> delete(@PathVariable Long score_id) throws FunctionalException {
-        scoreService.delete(score_id);
+    @DeleteMapping("/{namespace}/{username}")
+    public ResponseEntity<Void> delete(@PathVariable String username, @PathVariable String namespace, HttpServletRequest request) throws FunctionalException {
+        scoreService.delete(username, namespace, request);
         return ResponseEntity.noContent().build();
     }
 
