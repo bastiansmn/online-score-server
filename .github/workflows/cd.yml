@@ -15,7 +15,7 @@ jobs:
       - name: Login and push to container registry
         run: |
           echo ${{ secrets.DOCKERHUB_TOKEN }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/online-score-server:latest vp-api
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/online-score-server:latest .
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/online-score-server:latest
 
       - name: Copy docker-compose.prod.yml file to vps
