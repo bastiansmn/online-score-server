@@ -3,11 +3,11 @@ package com.bastiansmn.scoreserver.controller;
 import com.bastiansmn.scoreserver.domain.Score;
 import com.bastiansmn.scoreserver.exception.FunctionalException;
 import com.bastiansmn.scoreserver.service.ScoreService;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController

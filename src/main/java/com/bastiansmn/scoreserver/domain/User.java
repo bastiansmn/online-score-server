@@ -1,9 +1,9 @@
 package com.bastiansmn.scoreserver.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
 import lombok.*;
 
+import javax.persistence.*;
 import java.util.Set;
 
 @Entity

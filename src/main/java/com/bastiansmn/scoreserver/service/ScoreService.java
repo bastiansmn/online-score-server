@@ -7,13 +7,13 @@ import com.bastiansmn.scoreserver.exception.FunctionalException;
 import com.bastiansmn.scoreserver.exception.FunctionalRule;
 import com.bastiansmn.scoreserver.repository.NamespaceRepository;
 import com.bastiansmn.scoreserver.repository.ScoreRepository;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.WebUtils;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
 import java.time.Instant;
 import java.util.List;
