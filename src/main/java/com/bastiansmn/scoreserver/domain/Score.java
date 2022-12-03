@@ -1,6 +1,7 @@
 package com.bastiansmn.scoreserver.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModel;
 import lombok.*;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Builder
 @ToString
+@ApiModel
 public class Score {
 
     @Id

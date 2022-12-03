@@ -12,8 +12,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.util.function.Predicate;
 
-import static java.util.function.Predicate.not;
-
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
@@ -41,7 +39,7 @@ public class SwaggerConfig {
     }
 
     private Predicate<String> paths() {
-        return not(PathSelectors.regex("/error"));
+        return PathSelectors.regex("/error").negate().and(PathSelectors.regex("/").negate());
     }
 
 }
