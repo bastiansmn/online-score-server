@@ -30,7 +30,6 @@ services:
 
 volumes:
   db-data:
-  pgadmin-data:
 
 networks:
   default:
