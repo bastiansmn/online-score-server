@@ -6,18 +6,17 @@ import com.bastiansmn.scoreserver.exception.FunctionalRule;
 import com.bastiansmn.scoreserver.repository.NamespaceRepository;
 import com.bastiansmn.scoreserver.repository.ScoreRepository;
 import com.bastiansmn.scoreserver.repository.UserRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.WebUtils;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.net.URI;
 import java.util.Collection;
 import java.util.Optional;
 import java.util.Set;
@@ -31,8 +30,8 @@ public class NamespaceService {
     private final ScoreRepository scoreRepository;
     private final UserRepository userRepository;
 
-    public void connect(String name, NamespaceConnectionRequest nsInfo, HttpServletResponse response)
-            throws FunctionalException, IOException {
+    public ResponseEntity<Namespace> connect(String name, NamespaceConnectionRequest nsInfo)
+            throws FunctionalException {
         Optional<Namespace> namespaceOptional = namespaceRepository.findByName(name);
         if (namespaceOptional.isEmpty())
             throw new FunctionalException(
@@ -51,12 +50,14 @@ public class NamespaceService {
         ResponseCookie cookie = ResponseCookie.from("access", namespace.getAccessUUID())
                 .path("/")
                 .build();
-        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
-        response.setHeader("Content-Type", "application/json");
-        new ObjectMapper().writeValue(response.getOutputStream(), namespace);
+
+        return ResponseEntity
+                .ok()
+                .header(HttpHeaders.SET_COOKIE, cookie.toString())
+                .body(namespace);
     }
 
-    public void create(String name, HttpServletResponse response) throws FunctionalException, IOException {
+    public ResponseEntity<Namespace> create(String name) throws FunctionalException {
         if (this.namespaceRepository.existsByName(name))
             throw new FunctionalException(FunctionalRule.NS_ALREADY_EXISTS.getMessage(), HttpStatus.BAD_REQUEST
             );
@@ -71,9 +72,14 @@ public class NamespaceService {
         ResponseCookie cookie = ResponseCookie.from("access", namespace.getAccessUUID())
                 .path("/")
                 .build();
-        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
-        response.setHeader("Content-Type", "application/json");
-        new ObjectMapper().writeValue(response.getOutputStream(), namespace);
+
+        URI uri = URI
+                .create("/" + namespace.getName());
+
+        return ResponseEntity
+                .created(uri)
+                .header(HttpHeaders.SET_COOKIE, cookie.toString())
+                .body(namespace);
     }
 
     public Namespace get(String name) throws FunctionalException {

@@ -10,8 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.Collection;
 
 @RestController
@@ -26,11 +24,10 @@ public class NamespaceController {
             notes = "This will set a cookie with the accessUUID"
     )
     @PostMapping("/connect")
-    public void connect(
-            @PathVariable @ApiParam(value = "Namespace (probably your application name)", example = "my-app") String namespace, @RequestBody NamespaceConnectionRequest nsInfo,
-            HttpServletResponse response
-    ) throws IOException, FunctionalException {
-        this.namespaceService.connect(namespace, nsInfo, response);
+    public ResponseEntity<Namespace> connect(
+            @PathVariable @ApiParam(value = "Namespace (probably your application name)", example = "my-app") String namespace, @RequestBody NamespaceConnectionRequest nsInfo
+    ) throws FunctionalException {
+        return this.namespaceService.connect(namespace, nsInfo);
     }
 
     @ApiOperation(
@@ -70,13 +67,10 @@ public class NamespaceController {
             notes = "This set a cookie with the accessUUID."
     )
     @PostMapping
-    public void createNamespace(
-            @PathVariable String namespace,
-            @ApiParam(value = "Namespace (probably your application name)", example = "my-app")
-            HttpServletResponse response
-    )
-            throws FunctionalException, IOException {
-        namespaceService.create(namespace, response);
+    public ResponseEntity<Namespace> createNamespace(
+            @PathVariable @ApiParam(value = "Namespace (probably your application name)", example = "my-app") String namespace
+    ) throws FunctionalException {
+        return namespaceService.create(namespace);
     }
 
     @ApiOperation(

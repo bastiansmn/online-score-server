@@ -13,8 +13,8 @@ services:
       - db-data:/var/lib/postgresql/data
 
 
-  online-score-server:
-    container_name: online-score-server
+  online-score-api:
+    container_name: online-score-api
     image: bastiansmn/online-score-server:latest
     environment:
       PORT: ${PORT}
@@ -28,18 +28,11 @@ services:
     depends_on:
       - online-score-db
 
-  # Service for pg-admin
-  pg_admin:
-    container_name: pg-admin
-    image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@online-score.fr
-      PGADMIN_DEFAULT_PASSWORD: admin
-    ports:
-      - "${PG_PORT:-16543}:80"
-    volumes:
-      - pgadmin-data:/var/lib/pgadmin
-
 volumes:
   db-data:
   pgadmin-data:
+
+networks:
+  default:
+    external:
+      name: apps-network
