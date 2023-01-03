@@ -24,7 +24,7 @@ public class Score {
     @Column(nullable = false, updatable = false, unique = true)
     private Long score_id;
 
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false)
     private Long score;
 
     @ManyToOne(

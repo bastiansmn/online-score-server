@@ -33,6 +33,19 @@ public class ScoreController {
     }
 
     @ApiOperation(
+            value = "Increment the score of the user in a namespace. You need to be connected to the namespace to do this."
+    )
+    @PutMapping("/{namespace}/{username}/increment")
+    public ResponseEntity<Score> incrementScore(
+            @PathVariable @ApiParam(value = "Namespace (probably your application name)", example = "my-app") String namespace,
+            @PathVariable @ApiParam(value = "The username (unique) of the user you want to update score.", example = "player1") String username,
+            @RequestParam @ApiParam(value = "The amount to increment the score of the user. Prefer storing your decimals as an integer (1.65 = 165)", example = "189") Long increment,
+            HttpServletRequest request
+    ) throws FunctionalException {
+        return ResponseEntity.ok(scoreService.incrementScore(namespace, username, increment, request));
+    }
+
+    @ApiOperation(
             value = "Get the last score of a user in a namespace. Everyone can access this endpoint."
     )
     @GetMapping("/{namespace}/{username}")
