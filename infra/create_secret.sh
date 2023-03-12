@@ -12,3 +12,6 @@ create secret generic ${SECRET_NAME} \
 --from-literal="DB_PASSWORD=$DB_PASSWORD" \
 --from-literal="DB_URL=$DB_URL" \
 --from-literal="DB_NAME=$DB_NAME" \
+--from-literal="POSTGRES_DB=$DB_NAME" \
+--from-literal="POSTGRES_USER=$DB_USERNAME" \
+--from-literal="POSTGRES_PASSWORD=$DB_PASSWORD" \
