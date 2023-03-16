@@ -21,5 +21,9 @@ spec:
           envFrom:
           - secretRef:
               name: score-server-secret
+          resources:
+            limits:
+              cpu: 
+              memory: 200Mi
       imagePullSecrets:
         - name: registry-creds
