@@ -30,7 +30,7 @@ public class SwaggerConfig {
                 .title("Score Server API")
                 .description("A simple score server API to help you keep track of your users scores")
                 .contact(new Contact(
-                        "Bastian SOMON",
+                        "Bastian Somon",
                         "https://bastian-somon.fr",
                         "bastian.somon@gmail.com"
                 ))
