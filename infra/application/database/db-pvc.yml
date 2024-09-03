@@ -9,7 +9,6 @@ spec:
   storageClassName: nfs
   capacity:
     storage: 1Gi
-  persistentVolumeReclaimPolicy: Recycle
   accessModes:
     - ReadWriteMany
   nfs:
