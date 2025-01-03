@@ -4,6 +4,9 @@ kind: Ingress
 metadata:
   name: score-server-ingress
   namespace: score-server
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+
 spec:
   ingressClassName: nginx
   rules:
@@ -17,3 +20,7 @@ spec:
                 name: score-server-backend
                 port:
                   number: 8080
+  tls:
+    - hosts:
+        - '*.bastian-somon.fr'
+      secretName: letsencrypt-tls-cert
